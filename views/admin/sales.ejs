@@ -1,0 +1,39 @@
+<%- include('partials/ordersale',{page: "sales"}) %>
+
+<h2 class="title is-2">Befejezett megrendelések</h2>
+
+<% results.forEach((item,index)=> { 
+    myDate = new Date(item.date)
+
+    %>
+
+    <d<div class="box">
+          <table>	
+                        <tr>        <th>  <figure>
+                                            <img src="<%-baseUrl %>/uploads/<%-item.picture %>"></th>
+                    </figure>
+               
+                <div class="textBox">
+                      <th>  <h3 class="title is-3">#<%-item.oid %> <%-item.name %> x<%-item.qty %></h3> </th></th><th></th>
+
+                  <th>      Rendelve lett: <%-myDate.toString().split(" ").reduce((acc, newv, indx)=> {
+                            if(indx<=3)
+                            return acc+" "+newv
+                            else
+                            return acc
+                        })  %>
+                        <em>by <%-item.username %></em><th></tr>
+<hr>
+            </figure>
+            </div>
+    </div>
+
+<% })
+if (results.length <= 0) { %>
+    <h2 class="subtitle has-text-grey-light has-text-centered is-2">Nothing to show here</h2>
+<% } %>
+
+<%- include('partials/foot') %>
+
+              
+

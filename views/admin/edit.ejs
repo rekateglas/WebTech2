@@ -1,0 +1,66 @@
+<%- include('partials/head',{page: "edit"}) %>
+<center>
+<h2 class="title is-2">Edit </h2>
+
+<form action="<%-baseUrl %>/admin/edit/<%-product.id %>" method="post" enctype="multipart/form-data">
+<table class="inputtable" style="width:50%;padding:10px;border-radius:25px;">
+<tr>
+<th>  
+         <label class="label">Termék név</label></th>
+              <th><input class="input" name="name" type="text" placeholder="Terméknév" value="<%-product.name %>"></th>
+       </tr>
+   <tr>
+
+ 
+      <th>  <label class="label">Leírás</label></th>
+                 <th>  <textarea class="textarea" name="descr" placeholder="Leírás" ><%-product.descr %></textarea></th>
+    </tr>
+	<th>
+            <label class="label">Ár</label></th>
+           <th>                <input class="input" name="price" type="number" placeholder="Ár" value="<%-product.price %>"></th>
+</tr>
+     <tr><th>       <label class="label">Mennyiség</label></th>
+           <th>                <input class="input" name="stock" type="number" value="<%-product.stock %>" placeholder="Mennyiség"></th>
+</tr>
+<tr>
+<th>
+<label class="label">Kép</label>  </th>       
+ <th>  <img src="<%-baseUrl %>/uploads/<%-product.picture %>"></th>
+  </tr>
+<tr>
+<th>
+    <div class="file has-name">
+            <label class="file-label">
+              <input class="file-input" type="file" id="file" name="image">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span></th>
+<th>
+                             </span>
+              <span class="file-name" id="filename">
+               Kép neve
+              </span>
+            </label>
+          </div>
+    <br></th>
+</tr>
+<tr>
+<th colspan="2">
+              <button class="login-btn">Módosítás</button></th></tr>
+</form>
+<script>
+var file = document.getElementById("file");
+file.onchange = function(){
+    if(file.files.length > 0)
+    {
+
+      document.getElementById('filename').innerHTML = file.files[0].name;
+      console.log(file.files[0])
+
+    }
+}
+</script>
+
+<%- include('partials/foot') %>
+

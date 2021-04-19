@@ -1,0 +1,73 @@
+<%- include('partials/head',{page: "new"}) %>
+<center>
+<h2 class="title is-2">Új termék felvitele</h2>
+<center>
+                 
+					
+					<form action="/admin/new" method="post" enctype="multipart/form-data">
+
+<center>
+<table class="inputtable" style="width:50%;padding:10px;border-radius:25px;">
+<tr>
+<th><label for="field1">
+<span>Termék név</span></th><th><input class="input" name="name" type="text" placeholder="Termék név" autofocus="" required>
+</label></th><br></tr>
+<tr><th><label for="field2">
+<span>Leírás</span></th><th><input class="input" name="desc" type="textarea" placeholder="Leírás" required>
+</label></th><br></tr>
+<tr><th><span>Ár</span></th><th><input class="input" name="price" type="number" placeholder="Ár" required>
+</label></th><br></th>
+<tr><th><span>Darabszám</span></th><th><input class="input" name="stock" type="stock" placeholder="Darabszám" required>
+</label></th><br>
+<tr>
+<th colspan="2">
+<div class="file has-name">
+<center>
+            <label class="file-label">
+              <input class="file-input" type="file" id="file" name="image">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+<br>
+<br>
+                <span class="file-label">
+               Kattintson és rakjon fel képet
+<br>
+                </span>
+              </span>
+             
+          </div>
+    
+    <div class="field">
+		<br>
+<br>
+<br>
+<br>
+            <div class="control">
+              <button class="login-btn">Beküldés</button>
+            </div>
+</form>
+</th>
+					
+					
+					
+		</center>			
+					
+<script>
+var file = document.getElementById("file");
+file.onchange = function(){
+    if(file.files.length > 0)
+    {
+
+      document.getElementById('filename').innerHTML = file.files[0].name;
+      console.log(file.files[0])
+
+    }
+}
+</script>
+<%- include('partials/foot') %>
+
+              
+
+

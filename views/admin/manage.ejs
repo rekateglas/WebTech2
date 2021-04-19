@@ -1,0 +1,83 @@
+<%- include('partials/head',{page: "manage"}) %>
+
+<center><h2 class="title is-2">Összes termék</h2>
+<div id="app">
+<center>
+<table class="table is-striped is-fullwidth" >
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Kép</th>
+            <th>Terméknév</th>
+            <th>Darabszám</th>
+            <th>Módosítás</th>
+          </tr>
+        </thead>
+        <tbody>
+    <% products.forEach((item,index)=> { %>
+
+          <tr>
+              <th><%-item.id %></th>
+              <th>
+                
+                      <img src="<%-baseUrl %>/uploads/<%-item.picture %>" alt="<%-item.name %>">
+                  
+            </th>
+              <th><%-item.name %></th>
+              <th><%-item.stock %> <br><button class="login-btn" @click="editstock(<%-item.id %>,'d<%-index %>')">Módosítás</button></th>
+              <th>
+                <a href="<%-baseUrl %>/admin/edit/<%-item.id %>" class="login-btn">Módosítás</a>
+              </th>
+          </tr>
+    <% }) %>
+        </tbody>
+      </table>
+    </div>
+      <script src="<%-baseUrl %>/js/vue.js"></script>
+      <script src="<%-baseUrl %>/js/sweetalert2.all.min.js"></script>
+      <script>
+      new Vue({
+          el : "#app",
+          data : {
+            <% products.forEach((item,index)=> { %>
+                d<%-index %> : <%-item.stock %>,
+            <% }) %>
+          },
+          methods : {
+            editstock: function(id,did) {
+                swal({
+                    title: 'Írja be az új darabszámot',
+                    input: 'text',
+                    inputValue : this[did],
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Frissítés',
+                    showLoaderOnConfirm: true,
+                    preConfirm: (newval) => {
+                        return fetch(`<%-baseUrl%>/stock/update/${id}/${newval}`)
+                        .then(response => {
+                            if (!response.ok) {
+                            throw new Error(response.statusText)
+                            }
+                            return response.text()
+                        })
+                        .catch(error => {
+                            swal.showValidationMessage(
+                            `Request failed: ${error}`
+                            )
+                        })
+                    },
+                    allowOutsideClick: () => !swal.isLoading()
+                    }).then((result) => {
+                    console.log(result)
+                    window.location.reload();
+                    })
+          }
+        }
+      })
+      </script>
+<%- include('partials/foot') %>
+
+
